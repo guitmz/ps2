@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 
   SifInitRpc(0);
   init_scr();
-  sleep(1);
+  //sleep(1);
 
   // TMZ: write needed files to memory card
   scr_printf("COPYING FILES...\n");
@@ -75,8 +75,8 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  format.bits = 16;
-  format.freq = 22050;
+  format.bits = 8;
+  format.freq = 11050;
   format.channels = 2;
   err = audsrv_set_format(&format);
   scr_printf("set format returned %d\n", err);
@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
     bytes = bytes + ret;
 
     if (played % 8 == 0) {
-      scr_printf("\r%d bytes sent..", bytes);
+      scr_printf("\r%d bytes sent..\n", bytes);
     }
 
     if (played == 512)

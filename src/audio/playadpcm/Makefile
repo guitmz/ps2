@@ -6,16 +6,19 @@
 # Licenced under Academic Free License version 2.0
 # Review ps2sdk README & LICENSE files for further details.
 
-EE_BIN = audio.elf
-EE_OBJS = audio.o audsrv_irx.o libsd_irx.o vox.o
+EE_BIN = adpcm.elf
+EE_OBJS = adpcm.o audsrv_irx.o libsd_irx.o laugh.o
 EE_LIBS = -ldebug -lc -laudsrv
 
 BIN2S = $(PS2SDK)/bin/bin2s
 
 all: $(EE_BIN)
 
-vox.s: vox.wav
-	$(BIN2S) $< $@ vox
+%.adp : %.wav
+	$(PS2SDK)/bin/adpenc $< $@
+
+laugh.s: laugh.adp
+	$(BIN2S) $< $@ laugh
 
 audsrv_irx.s: $(PS2SDK)/iop/irx/audsrv.irx
 	$(BIN2S) $< $@ audsrv_irx
